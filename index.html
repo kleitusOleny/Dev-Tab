@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devtab</title>
+    <link rel="shortcut icon" href="img/icon-devtab.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div>
+            <img src="img\topSearch1.webp" alt="Logo" class="search-logo" style="width: 300px;;height: 300px">
+        </div>
+        <div>
+            <h1 align="center">
+                <img src="https://readme-typing-svg.herokuapp.com/?font=Righteous&size=35&center=true&vCenter=true&width=500&height=70&duration=4000&lines=Hi+There!;+✨+Im+Oleny+Developer+✨;" />
+            </h1>
+        </div>
+        <div class="search-bar-container">
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Tìm kiếm nhanh...">
+                <i class="fas fa-search search-icon"></i>
+                <div id="suggestions-container"></div>
+                <div id="history-container"></div>
+            </div>
+        </div>
+
+
+
+        <div class="widgets-container">
+            <div class="widget clock-widget">
+                <h1 id="time">18:19</h1>
+                <p id="date">Thứ Bảy, 9 tháng Tám, 2025</p>
+                <img src="img/calenda.png" alt="ảnh minh họa" class="clock-image">
+            </div>
+
+            <div class="widget quick-links-widget">
+                <h2>Các liên kết nhanh</h2>
+                <div class="quick-links-grid">
+                    <a href="https://github.com/kleitusOleny" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.youtube.com/" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://stackoverflow.com" target="_blank" title="Stack Overflow"><i class="fab fa-stack-overflow"></i></a>
+                    <a href="https://dev.to" target="_blank" title="Dev.to"><i class="fab fa-dev"></i></a>
+                    <a href="http://localhost:3000" target="_blank" title="Localhost"><i class="fas fa-server"></i></a>
+                    <a href="https://codeforces.com/profile/oleny2209" target="_blank" title="Codeforces"><i class="fa fa-bar-chart" aria-hidden="true"></i></a>
+                </div>
+            </div>
+
+            <div class="widget notes-widget">
+                <h2>Ghi chú</h2>
+                <textarea id="notes-content" placeholder="Ghi chú nhanh..."></textarea>
+                <button id="save-note-btn">Lưu</button>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="feature/script.js"></script>
+    <script src="feature/search.js"></script>
+</body>
+</html>

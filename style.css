@@ -1,0 +1,344 @@
+/* Thiết lập chung cho toàn bộ trang */
+body {
+    background-size: cover; /* Phóng to hình ảnh để nó phủ kín toàn bộ trang */
+    background-repeat: no-repeat; /* Không lặp lại hình ảnh */
+    background-position: center; /* Căn giữa hình ảnh */
+    background-attachment: fixed; /* Giữ hình ảnh cố định khi cuộn trang */
+
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+body::after {
+    content: '';
+    background-image: url('img/bg1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+
+    filter: blur(1.5px); /* Giá trị mờ, bạn có thể tăng hoặc giảm */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+}
+
+/* Lớp overlay đã có sẵn, đặt z-index cao hơn lớp mờ */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: -1;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    text-align: center;
+}
+
+/* lời chào*/
+.banner-welcome{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+    background-color: rgba(44, 44, 44, 0.05); /* Tăng độ trong suốt cho nền widget */
+    border-radius: 15px;
+    padding: 30px;
+    text-align: left;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5); /* Tăng độ đậm của đổ bóng */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+/* Thanh tìm kiếm */
+.search-bar-container {
+    margin-bottom: 40px;
+}
+
+/* Container mới cho thanh tìm kiếm và icon */
+.search-bar {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Thanh tìm kiếm */
+.search-input {
+    width: 100%;
+    padding: 15px 50px 15px 20px; /* Tăng padding bên phải để chứa icon */
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 50px;
+    background-color: rgba(44, 44, 44, 1);
+    color: #f0f0f0;
+    outline: none;
+    transition: box-shadow 2s ease;
+    box-shadow: 
+        0 0 10px rgba(0, 150, 255, 0.5),  /* Lớp bóng xanh */
+        0 0 10px rgba(255, 102, 196, 0.5); /* Lớp bóng hồng */
+}
+
+/* Icon kính lúp */
+.search-icon {
+    position: absolute;
+    right: -50px; /* Đẩy icon về bên phải thêm */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fff; /* Thay đổi màu sắc thành màu trắng */
+    font-size: 1.2rem;
+    pointer-events: none;
+}
+
+.search-input::placeholder {
+    color: #b0b0b0; /* Làm sáng màu chữ gợi ý */
+}
+
+.search-input:focus {
+    /* Áp dụng hiệu ứng chuyển động đã tạo */
+    animation: glowing-shadow 7s infinite;
+    border-radius: 25px 25px 0 0;
+}
+
+/* Các widget */
+.widgets-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.widget {
+    background-color: rgba(44, 44, 44, 0.85); /* Tăng độ trong suốt cho nền widget */
+    backdrop-filter: blur(10px); /* Thêm hiệu ứng làm mờ nền phía sau */
+    border-radius: 15px;
+    padding: 30px;
+    text-align: left;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5); /* Tăng độ đậm của đổ bóng */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Thêm viền mỏng */
+}
+
+.widget h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #555;
+    padding-bottom: 10px;
+    
+    /* Thêm màu gradient cho chữ */
+    background: linear-gradient(to right, #00c6ff, #ff66c4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2); /* Thay đổi màu viền để hợp với gradient */
+}
+
+/* Đồng hồ */
+.clock-widget h1 {
+    font-size: 4rem;
+    margin: 0;
+    line-height: 1;
+    color: #0096ff; /* Đổi màu đồng hồ để nổi bật hơn */
+}
+
+.clock-widget p {
+    font-size: 1rem;
+    margin: 0;
+    color: #aaa;
+}
+
+/* Các liên kết nhanh dưới dạng lưới icon */
+.quick-links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    gap: 15px;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+.quick-links-grid a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(62, 62, 62, 0.7);
+    border-radius: 10px;
+    height: 60px;
+    width: 60px;
+    text-decoration: none;
+    color: #f0f0f0;
+    font-size: 2rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.quick-links-grid a:hover {
+    background-color: #0096ff;
+    transform: scale(1.1);
+}
+
+/* Ghi chú nhanh */
+.notes-widget textarea {
+    width: 90%;
+    height: 150px;
+    padding: 15px; 
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    background-color: rgba(62, 62, 62, 0.7); /* Tăng độ trong suốt */
+    color: #f0f0f0;
+    resize: none;
+    outline: none;
+}
+
+/* Nút Lưu ghi chú */
+#save-note-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    background-color: #0096ff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#save-note-btn:hover {
+    background-color: #007bff;
+    transform: translateY(-2px);
+}
+
+#save-note-btn:active {
+    background-color: #0056b3;
+    transform: translateY(0);
+}
+
+/* Định dạng cho ảnh trong widget đồng hồ */
+.clock-image {
+    width: 100%; /* Chiều rộng của ảnh */
+    max-height: 200px; /* Chiều cao tối đa của ảnh */
+    margin-top: 20px; /* Khoảng cách phía trên */
+    border-radius: 10px; /* Bo góc ảnh */
+    object-fit: cover; /* Đảm bảo ảnh hiển thị đầy đủ */
+    display: block;
+    margin-left: 0px;
+    margin-right: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Thêm bóng đổ nhẹ */
+}
+
+#suggestions-container {
+    position: absolute; /* Đặt vị trí tuyệt đối để nằm dưới thanh tìm kiếm */
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto; /* Thêm thanh cuộn khi danh sách quá dài */
+    background-color: rgba(44, 44, 44, 0.9);
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: none; /* Mặc định ẩn, chỉ hiện khi có gợi ý */
+}
+
+.suggestion-item {
+    padding: 10px 20px;
+    cursor: pointer;
+    text-align: left;
+    color: #f0f0f0;
+}
+
+.suggestion-item:hover {
+    background-color: #3e3e3e;
+}
+
+/* Container lịch sử tìm kiếm */
+#history-container {
+    position: absolute;
+    top: 100%;
+    width: 108.5%;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: rgba(44, 44, 44, 0.9);
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+}
+
+/* Các mục trong lịch sử tìm kiếm */
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-align: left;
+    color: #f0f0f0;
+}
+
+.history-item:hover {
+    background-color: #3e3e3e;
+}
+
+.history-text {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Nút xóa lịch sử */
+.delete-history-btn {
+    color: #f0f0f0;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 5px;
+    margin-left: 10px;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+.delete-history-btn:hover {
+    opacity: 1;
+    color: #ff66c4;
+}
+
+/* Hiệu ứng chuyển màu box-shadow khi focus */
+@keyframes glowing-shadow {
+    0% {
+        box-shadow: 0 0 15px rgba(0, 150, 255, 0.7); /* Bắt đầu với màu xanh */
+    }
+    30% {
+        box-shadow: 0 0 18px rgba(100, 120, 200, 0.8); /* Bắt đầu chuyển sang hồng */
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(255, 102, 196, 0.9); /* Điểm nhấn màu hồng */
+    }
+    70% {
+        box-shadow: 0 0 22px rgba(255, 102, 196, 0.85); /* Duy trì màu hồng */
+    }
+    90% {
+        box-shadow: 0 0 18px rgba(60, 130, 220, 0.75); /* Bắt đầu chuyển về xanh */
+    }
+    100% {
+        box-shadow: 0 0 15px rgba(0, 150, 255, 0.7); /* Trở lại màu xanh */
+    }
+}
