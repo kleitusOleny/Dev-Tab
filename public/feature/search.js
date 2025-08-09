@@ -16,21 +16,59 @@ const sampleSuggestions = [
     "codeforces profile"
 ];
 
-// Hàm để lưu lịch sử tìm kiếm vào localStorage
-function saveSearchHistory(query) {
-    let history = JSON.parse(localStorage.getItem('searchHistory')) || [];
+// Hàm để lưu lịch sử tìm kiếm bằng cách gọi API
+async function saveSearchHistory(query) {
+    let history;
+    try {
+        const loadResponse = await fetch('/api/history');
+        if (loadResponse.ok) {
+            history = await loadResponse.json();
+        } else {
+            history = [];
+        }
+    } catch (error) {
+        console.error('Lỗi khi tải lịch sử:', error);
+        history = [];
+    }
+    
     if (!history.includes(query)) {
         history.unshift(query);
     }
+    
     if (history.length > 10) {
         history = history.slice(0, 10);
     }
-    localStorage.setItem('searchHistory', JSON.stringify(history));
+
+    try {
+        const saveResponse = await fetch('/api/history', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(history, null, 2)
+        });
+
+        if (saveResponse.ok) {
+            console.log('Lịch sử đã được lưu vào file history.json');
+        }
+    } catch (error) {
+        console.error('Lỗi khi lưu lịch sử:', error);
+    }
 }
 
 // Hàm để hiển thị lịch sử tìm kiếm
-function renderSearchHistory() {
-    const history = JSON.parse(localStorage.getItem('searchHistory')) || [];
+async function renderSearchHistory() {
+    const historyContainer = document.getElementById('history-container');
+    let history = [];
+    try {
+        const response = await fetch('/api/history');
+        if (response.ok) {
+            history = await response.json();
+        }
+    } catch (error) {
+        console.error('Lỗi khi tải lịch sử:', error);
+    }
+    
     historyContainer.innerHTML = '';
     
     if (history.length > 0 && searchInput.value.trim() === '') {
@@ -48,9 +86,23 @@ function renderSearchHistory() {
             
             const deleteBtn = document.createElement('i');
             deleteBtn.className = 'fas fa-times delete-history-btn';
-            deleteBtn.addEventListener('click', (event) => {
+            deleteBtn.addEventListener('click', async (event) => {
                 event.stopPropagation();
-                deleteSearchHistoryItem(index);
+                history.splice(index, 1);
+                try {
+                    const deleteResponse = await fetch('/api/history', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(history, null, 2)
+                    });
+                    if (deleteResponse.ok) {
+                        renderSearchHistory();
+                    }
+                } catch (error) {
+                    console.error('Lỗi khi xóa lịch sử:', error);
+                }
             });
             
             historyItem.appendChild(historyText);
@@ -61,14 +113,6 @@ function renderSearchHistory() {
     } else {
         historyContainer.style.display = 'none';
     }
-}
-
-// Hàm để xóa một mục trong lịch sử tìm kiếm
-function deleteSearchHistoryItem(index) {
-    let history = JSON.parse(localStorage.getItem('searchHistory')) || [];
-    history.splice(index, 1);
-    localStorage.setItem('searchHistory', JSON.stringify(history));
-    renderSearchHistory();
 }
 
 // Chức năng thực hiện tìm kiếm
@@ -113,7 +157,7 @@ function showSuggestions(query) {
     }
 }
 
-// Lắng nghe sự kiện để hiển thị lịch sử hoặc gợi ý
+// Lắng nghe sự kiện
 searchInput.addEventListener('input', (event) => {
     const query = event.target.value;
     if (query.trim() === '') {
@@ -127,7 +171,6 @@ searchInput.addEventListener('focus', () => {
     renderSearchHistory();
 });
 
-// Chức năng tìm kiếm: Nhấn Enter hoặc click icon
 searchInput.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
         performSearch();
@@ -135,7 +178,6 @@ searchInput.addEventListener('keydown', (event) => {
 });
 searchIcon.addEventListener('click', performSearch);
 
-// Ẩn gợi ý và lịch sử khi click ra ngoài
 document.addEventListener('click', (event) => {
     if (!event.target.closest('.search-bar')) {
         suggestionsContainer.style.display = 'none';
